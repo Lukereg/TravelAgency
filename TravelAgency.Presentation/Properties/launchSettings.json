@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TravelAgency.Presentation (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TravelAgency.Presentation (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
