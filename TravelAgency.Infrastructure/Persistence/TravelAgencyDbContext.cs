@@ -21,7 +21,12 @@ namespace TravelAgency.Infrastructure.Persistence
         {
 
         }
-
+       
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=TravelAgencyDb;Trusted_Connection=True;TrustServerCertificate=True;");
+        }
+        
 
         public DbSet<User> Users { get; set; }
         public DbSet<Order> Orders { get; set; }
