@@ -29,6 +29,7 @@ namespace TravelAgency.Presentation
     /// </summary>
     public partial class App : Microsoft.UI.Xaml.Application
     {
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -45,6 +46,10 @@ namespace TravelAgency.Presentation
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
             m_window = new MainWindow();
+
+            var loginPage = new LoginPage(m_window);
+            m_window.Content = loginPage;
+
             m_window.Activate();
         }
 

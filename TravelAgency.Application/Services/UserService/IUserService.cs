@@ -10,5 +10,6 @@ namespace TravelAgency.Application.Services.UserService
     public interface IUserService
     {
         Task RegisterUser(RegisterUserDto registerUserDto);
+        Task<bool> LoginUser(LoginUserDto loginUserDto);
     }
 }
