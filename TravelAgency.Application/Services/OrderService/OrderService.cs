@@ -13,11 +13,13 @@ using TravelAgency.Infrastructure.Repositories;
 
 namespace TravelAgency.Application.Services.OrderService
 {
-    public class OrderService : IOrderService
+    public class OrderService : IOrderService, IObservable
     {
 
         private readonly IOrderRepository _orderRepository;
         private readonly IMapper _orderMapper;
+        private List<IObserver> _observers = new List<IObserver>();
+
 
         public OrderService() 
         {
@@ -34,11 +36,13 @@ namespace TravelAgency.Application.Services.OrderService
         {
             var order = _orderMapper.Map<Order>(addOrderDto);
             await _orderRepository.Add(order);
+            Notify();
         }
 
         public async Task DeleteOrder(Guid id)
         {
             await _orderRepository.Delete(id);
+            Notify();
         }
 
         public async Task<IEnumerable<GetOrderDto>> GetAllOrders()
@@ -53,6 +57,23 @@ namespace TravelAgency.Application.Services.OrderService
         {
             var order = _orderMapper.Map<Order>(updateOrderDto);
             await _orderRepository.Update(order, id);
+            Notify();
+        }
+
+        public void Notify()
+        {
+            foreach (var observer in _observers)
+                observer.Update();    
+        }
+
+        public void AddObserver(IObserver observer)
+        {
+            _observers.Add(observer);
+        }
+
+        public void RemoveObserver(IObserver observer)
+        {
+            _observers.Remove(observer);
         }
     }
 }

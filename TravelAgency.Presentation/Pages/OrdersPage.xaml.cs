@@ -9,6 +9,7 @@ using TravelAgency.Application.Models.Order;
 using TravelAgency.Application.Services.CustomerService;
 using TravelAgency.Application.Services.OrderService;
 using TravelAgency.Domain.Entities;
+using TravelAgency.Domain.Interfaces;
 using TravelAgency.Presentation.Pages;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -19,7 +20,7 @@ namespace TravelAgency.Presentation
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class OrdersPage : Page
+    public sealed partial class OrdersPage : Page, IObserver
     {
         private Window _window;
         private IEnumerable<GetOrderDto> _orders = new List<GetOrderDto>();
@@ -32,6 +33,7 @@ namespace TravelAgency.Presentation
             _customerService = new CustomerService();
             _window = window;
             this.InitializeComponent();
+            _orderService.AddObserver(this);
             LoadOrders();
         }
 
@@ -97,6 +99,9 @@ namespace TravelAgency.Presentation
 
         }
 
-        
+        public void Update()
+        {
+            LoadOrders();
+        }
     }
 }
