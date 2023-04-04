@@ -21,6 +21,20 @@ namespace TravelAgency.Infrastructure.Repositories
             }
         }
 
+        public async Task Delete(Guid id)
+        {
+            using (TravelAgencyDbContext dbContext = new TravelAgencyDbContext())
+            {
+                var order = await dbContext.Orders.FirstOrDefaultAsync(o => o.Id == id);
+
+                if (order != null)
+                {
+                    dbContext.Orders.Remove(order);
+                    await dbContext.SaveChangesAsync();
+                }           
+            }
+        }
+
         public async Task<IEnumerable<Order>> GetAll()
         {
             List<Order> orders = new();

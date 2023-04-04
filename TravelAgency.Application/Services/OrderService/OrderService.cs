@@ -36,6 +36,11 @@ namespace TravelAgency.Application.Services.OrderService
             await _orderRepository.Add(order);
         }
 
+        public async Task DeleteOrder(Guid id)
+        {
+            await _orderRepository.Delete(id);
+        }
+
         public async Task<IEnumerable<GetOrderDto>> GetAllOrders()
         {
             var orders = await _orderRepository.GetAll();

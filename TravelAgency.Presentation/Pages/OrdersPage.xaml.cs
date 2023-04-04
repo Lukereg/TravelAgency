@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using TravelAgency.Application.Models.Order;
 using TravelAgency.Application.Services.CustomerService;
 using TravelAgency.Application.Services.OrderService;
+using TravelAgency.Domain.Entities;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -45,6 +46,14 @@ namespace TravelAgency.Presentation
             OrdersListView.ItemsSource = _orders;
         }
 
+        public async void OnDeleteButtonClick(object sender, RoutedEventArgs e)
+        {
+            Button btn = (Button)sender;
+            GetOrderDto getOrderDto = (GetOrderDto)btn.DataContext;
+
+            await _orderService.DeleteOrder(getOrderDto.Id);
+        }
+
         private async void OrdersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (OrdersListView.SelectedItem != null)
@@ -69,6 +78,9 @@ namespace TravelAgency.Presentation
 
                 OrdersListView.SelectedItem = null;
             }
+
         }
+
+        
     }
 }

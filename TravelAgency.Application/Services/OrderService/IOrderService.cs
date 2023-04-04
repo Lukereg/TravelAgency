@@ -11,5 +11,6 @@ namespace TravelAgency.Application.Services.OrderService
     {
         Task AddOrder(AddOrderDto addOrderDto);
         Task<IEnumerable<GetOrderDto>> GetAllOrders();
+        Task DeleteOrder(Guid id);
     }
 }
