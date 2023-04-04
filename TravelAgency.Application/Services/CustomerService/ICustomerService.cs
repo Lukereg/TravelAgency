@@ -10,5 +10,6 @@ namespace TravelAgency.Application.Services.CustomerService
     public interface ICustomerService
     {
         Task AddCustomer(AddCustomerDto addCustomerDto);
+        Task<IEnumerable<GetCustomerDto>> GetAllCustomers();
     }
 }

@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelAgency.Application.Models.Customer;
+using TravelAgency.Application.Models.Order;
 using TravelAgency.Domain.Entities;
 
 namespace TravelAgency.Application.MapProfiles
 {
-    public class CustomerMappingProfile : Profile
+    public class OrderMappingProfile : Profile
     {
-        public CustomerMappingProfile()
+        public OrderMappingProfile()
         {
-            CreateMap<AddCustomerDto, Customer>();
-            CreateMap<Customer, GetCustomerDto>();
+            CreateMap<AddOrderDto, Order>();
         }
     }
 }

@@ -33,5 +33,13 @@ namespace TravelAgency.Application.Services.CustomerService
             var customer = _customerMapper.Map<Customer>(addCustomerDto);
             await _customerRepository.Add(customer);
         }
+
+        public async Task<IEnumerable<GetCustomerDto>> GetAllCustomers()
+        {
+            var customers = await _customerRepository.GetAll();
+            var result = _customerMapper.Map<List<GetCustomerDto>>(customers);
+
+            return result;
+        }
     }
 }

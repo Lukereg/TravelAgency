@@ -51,12 +51,12 @@ namespace TravelAgency.Presentation
 
             var result = await _userService.LoginUser(loginUser);
 
-            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            localSettings.Values["IsUserLoggedIn"] = result;
-
-            if (result)
+            if (result != null)
             {
-
+                AppSettings.IsUserLoggedIn = true;
+                AppSettings.UserLoggedInId = result.Id;
+                var orders = new OrdersPage(_window);
+                _window.Content = orders;
             }
             else
             {

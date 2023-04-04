@@ -7,9 +7,8 @@ using TravelAgency.Domain.Entities;
 
 namespace TravelAgency.Domain.Interfaces
 {
-    public interface ICustomerRepository
+    public interface IOrderRepository
     {
-        Task Add(Customer customer);
-        Task<IEnumerable<Customer>> GetAll();
+        Task Add(Order order);
     }
 }

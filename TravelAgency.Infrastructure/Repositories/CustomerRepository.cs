@@ -1,4 +1,5 @@
-﻿using TravelAgency.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using TravelAgency.Domain.Entities;
 using TravelAgency.Domain.Interfaces;
 using TravelAgency.Infrastructure.Persistence;
 
@@ -13,6 +14,18 @@ namespace TravelAgency.Infrastructure.Repositories
                 await dbContext.Customers.AddAsync(customer);
                 await dbContext.SaveChangesAsync();
             }
+        }
+
+        public async Task<IEnumerable<Customer>> GetAll()
+        {
+            List<Customer> customers = new();
+
+            using (TravelAgencyDbContext dbContext = new TravelAgencyDbContext())
+            {
+                customers = await dbContext.Customers.ToListAsync();
+            }
+
+            return customers;
         }
     }
 }

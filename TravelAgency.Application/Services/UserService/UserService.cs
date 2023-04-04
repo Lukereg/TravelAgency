@@ -34,20 +34,21 @@ namespace TravelAgency.Application.Services.UserService
             await _userRepository.Add(newUser);
         }
 
-        public async Task<bool> LoginUser(LoginUserDto loginUserDto)
+        public async Task<User?> LoginUser(LoginUserDto loginUserDto)
         {
             var users = await _userRepository.GetAll();
             var user = users.FirstOrDefault(u => u.Login == loginUserDto.Login);
 
             if (user == null)
-                return false;
+                return null;
             
             var result = _passwordHasher.VerifyHashedPassword(user, user.Password, loginUserDto.Password);
 
             if (result == PasswordVerificationResult.Failed)
-                return false;
+                return null;
             else
-                return true;       
+                return user;
+       
         }
     }
 }
