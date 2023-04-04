@@ -48,5 +48,11 @@ namespace TravelAgency.Application.Services.OrderService
 
             return result;
         }
+
+        public async Task UpdateOrder(UpdateOrderDto updateOrderDto, Guid id)
+        {
+            var order = _orderMapper.Map<Order>(updateOrderDto);
+            await _orderRepository.Update(order, id);
+        }
     }
 }

@@ -47,5 +47,23 @@ namespace TravelAgency.Infrastructure.Repositories
             return orders;
         }
 
+        public async Task Update(Order order, Guid id)
+        {
+            using (TravelAgencyDbContext dbContext = new TravelAgencyDbContext())
+            {
+                var orderDb = await dbContext.Orders.FirstOrDefaultAsync(o => o.Id == id);
+
+                if (orderDb != null)
+                {
+                    orderDb.TourName = order.TourName;
+                    orderDb.Description = order.Description;
+                    orderDb.StartDate = order.StartDate;
+                    orderDb.EndDate = order.EndDate;
+                    orderDb.Price= order.Price;
+
+                    await dbContext.SaveChangesAsync();
+                }
+            }
+        }
     }
 }

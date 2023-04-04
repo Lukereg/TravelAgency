@@ -12,5 +12,6 @@ namespace TravelAgency.Domain.Interfaces
         Task Add(Order order);
         Task<IEnumerable<Order>> GetAll();
         Task Delete(Guid id);
+        Task Update(Order order, Guid id);
     }
 }

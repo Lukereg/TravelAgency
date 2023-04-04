@@ -30,7 +30,8 @@
                                 <TextBlock Text="{Binding StartDate}" />
                                 <TextBlock Text="{Binding EndDate}" />
                             </StackPanel>
-                            <Button Content="Delete" Click="OnDeleteButtonClick"/>
+                            <Button Content="Delete" Click="OnDeleteButtonClick" Margin="10 10"/>
+                            <Button Content="Edit" Click="OnEditButtonClick" Margin="10 10"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>

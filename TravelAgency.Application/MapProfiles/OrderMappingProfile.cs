@@ -16,6 +16,7 @@ namespace TravelAgency.Application.MapProfiles
         {
             CreateMap<AddOrderDto, Order>();
             CreateMap<Order, GetOrderDto>();
+            CreateMap<UpdateOrderDto, Order>();
         }
     }
 }
