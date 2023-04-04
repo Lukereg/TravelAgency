@@ -12,18 +12,18 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
-        <TextBlock Text="Logowanie" FontSize="24" FontWeight="Bold" />
+        <TextBlock Text="Login" FontSize="24" FontWeight="Bold" />
 
         <StackPanel Orientation="Horizontal" Spacing="10">
-            <TextBlock Text="Nazwa uzytkownika:" />
+            <TextBlock Text="Username:" />
             <TextBox x:Name="UsernameTextBox" Width="200" />
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Spacing="10">
-            <TextBlock Text="Haslo:" />
+            <TextBlock Text="Password:" />
             <PasswordBox x:Name="PasswordBox" Width="200" />
         </StackPanel>
 
-        <Button x:Name="LoginButton" Content="Zaloguj" Click="OnLoginButtonClick" />
+        <Button x:Name="LoginButton" Content="Log in" Click="OnLoginButtonClick" />
     </StackPanel>
 </Page>
