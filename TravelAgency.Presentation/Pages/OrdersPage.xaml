@@ -12,37 +12,43 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <TextBlock Text="Orders:" FontSize="16" FontWeight="Bold" Margin="30,30" />
-        <ScrollViewer Grid.Column="0" Margin="30,60">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="30" HorizontalAlignment="Left">
+            <Button x:Name="LogOut" Click="OnLogOutButtonClick">Log out</Button>
+            <Button x:Name="AddOrder" Click="OnAddOrderButtonClick" Margin="10 0 0 0">Add order</Button>
+        </StackPanel>
+
+        <TextBlock Grid.Row="1" Text="Orders:" FontSize="16" FontWeight="Bold" Margin="30"/>
+
+        <ScrollViewer Grid.Row="2" Margin="30">
             <ListView x:Name="OrdersListView" SelectionChanged="OrdersListView_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Width="400">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Width="400">
                                 <TextBlock Text="{Binding TourName}" />
                                 <TextBlock Text="{Binding Description}" />
                                 <TextBlock Text="{Binding Price}" />
                                 <TextBlock Text="{Binding StartDate}" />
                                 <TextBlock Text="{Binding EndDate}" />
                             </StackPanel>
-                            <Button Content="Delete" Click="OnDeleteButtonClick" Margin="10 10"/>
-                            <Button Content="Edit" Click="OnEditButtonClick" Margin="10 10"/>
-                        </StackPanel>
+                            <Button Grid.Column="1" Content="Delete" Click="OnDeleteButtonClick" Margin="10" />
+                            <Button Grid.Column="2" Content="Edit" Click="OnEditButtonClick" Margin="10" />
+                        </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-
         </ScrollViewer>
-
-
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Button x:Name="AddOrder" Click="OnAddOrderButtonClick">Add order</Button>
-        </StackPanel>
-
     </Grid>
+
 </Page>

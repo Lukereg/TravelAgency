@@ -64,6 +64,12 @@ namespace TravelAgency.Presentation
             _window.Content = page;
         }
 
+        public void OnLogOutButtonClick(object sender, RoutedEventArgs e)
+        {
+            var page = new LoginPage(_window);
+            _window.Content = page;
+        }
+
         private async void OrdersListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (OrdersListView.SelectedItem != null)

@@ -35,6 +35,8 @@ namespace TravelAgency.Presentation
         {
             _window = window;
             _userService = new UserService();
+            AppSettings.IsUserLoggedIn = false;
+            AppSettings.UserLoggedInId = Guid.Empty;
             this.InitializeComponent();
         }
 
