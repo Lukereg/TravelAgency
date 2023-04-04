@@ -27,5 +27,16 @@ namespace TravelAgency.Infrastructure.Repositories
 
             return customers;
         }
+
+        public async Task<Customer?> GetById(Guid id)
+        {
+            Customer customer = new();
+
+            using (TravelAgencyDbContext dbContext = new TravelAgencyDbContext())
+            {
+                customer = await dbContext.Customers.FirstOrDefaultAsync(c => c.Id == id);
+            }
+            return customer;
+        }
     }
 }

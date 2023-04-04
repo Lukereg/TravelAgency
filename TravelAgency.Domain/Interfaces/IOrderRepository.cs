@@ -10,5 +10,6 @@ namespace TravelAgency.Domain.Interfaces
     public interface IOrderRepository
     {
         Task Add(Order order);
+        Task<IEnumerable<Order>> GetAll();
     }
 }

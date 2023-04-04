@@ -11,7 +11,33 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-        <Button x:Name="AddOrder" Click="OnAddOrderButtonClick">Add order</Button>
-    </StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Orders:" FontSize="16" FontWeight="Bold" Margin="30,30" />
+        <ScrollViewer Grid.Column="0" Margin="30,60">
+            <ListView x:Name="OrdersListView" SelectionChanged="OrdersListView_SelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding TourName }" />
+                            <TextBlock Text="{Binding Description}" />
+                            <TextBlock Text="{Binding Price}" />
+                            <TextBlock Text="{Binding StartDate}" />
+                            <TextBlock Text="{Binding EndDate}" />
+                    </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollViewer>
+
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Button x:Name="AddOrder" Click="OnAddOrderButtonClick">Add order</Button>
+        </StackPanel>
+
+    </Grid>
 </Page>

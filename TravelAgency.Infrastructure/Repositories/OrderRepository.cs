@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,5 +20,18 @@ namespace TravelAgency.Infrastructure.Repositories
                 await dbContext.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<Order>> GetAll()
+        {
+            List<Order> orders = new();
+
+            using (TravelAgencyDbContext dbContext = new TravelAgencyDbContext())
+            {
+                orders = await dbContext.Orders.ToListAsync();
+            }
+
+            return orders;
+        }
+
     }
 }

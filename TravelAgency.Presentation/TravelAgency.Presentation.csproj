@@ -14,7 +14,6 @@
   <ItemGroup>
     <None Remove="AddOrderPage.xaml" />
     <None Remove="LoginPage.xaml" />
-    <None Remove="OrdersPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>

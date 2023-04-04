@@ -35,5 +35,13 @@ namespace TravelAgency.Application.Services.OrderService
             var order = _orderMapper.Map<Order>(addOrderDto);
             await _orderRepository.Add(order);
         }
+
+        public async Task<IEnumerable<GetOrderDto>> GetAllOrders()
+        {
+            var orders = await _orderRepository.GetAll();
+            var result = _orderMapper.Map<List<GetOrderDto>>(orders);
+
+            return result;
+        }
     }
 }

@@ -41,5 +41,13 @@ namespace TravelAgency.Application.Services.CustomerService
 
             return result;
         }
+
+        public async Task<GetCustomerDto> GetCustomerById(Guid id)
+        {
+            var customer = await _customerRepository.GetById(id);
+            var result = _customerMapper.Map<GetCustomerDto>(customer);
+
+            return result;
+        }
     }
 }

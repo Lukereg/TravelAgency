@@ -11,5 +11,6 @@ namespace TravelAgency.Domain.Interfaces
     {
         Task Add(Customer customer);
         Task<IEnumerable<Customer>> GetAll();
+        Task<Customer?> GetById(Guid id);
     }
 }

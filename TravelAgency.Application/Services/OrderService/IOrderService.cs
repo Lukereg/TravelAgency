@@ -10,5 +10,6 @@ namespace TravelAgency.Application.Services.OrderService
     public interface IOrderService
     {
         Task AddOrder(AddOrderDto addOrderDto);
+        Task<IEnumerable<GetOrderDto>> GetAllOrders();
     }
 }
