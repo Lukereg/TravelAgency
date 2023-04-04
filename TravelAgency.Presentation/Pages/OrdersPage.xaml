@@ -37,11 +37,26 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0" Width="400" Margin="0 10">
-                                <TextBlock Text="{Binding TourName}" />
-                                <TextBlock Text="{Binding Description}" />
-                                <TextBlock Text="{Binding Price}" />
-                                <TextBlock Text="{Binding StartDate}" />
-                                <TextBlock Text="{Binding EndDate}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Tour name: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding TourName}" Margin="5 0" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Description: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Description}" Margin="5 0" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Price: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Price}" Margin="5 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Start date: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding StartDate}" Margin="5 0 "/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="End date: " FontWeight="Bold" />
+                                    <TextBlock Text="{Binding EndDate}" Margin="5 0"/>
+                                </StackPanel>
                             </StackPanel>
                             <Button Grid.Column="1" Content="Delete" Click="OnDeleteButtonClick" Margin="10" />
                             <Button Grid.Column="2" Content="Edit" Click="OnEditButtonClick" Margin="10" />
