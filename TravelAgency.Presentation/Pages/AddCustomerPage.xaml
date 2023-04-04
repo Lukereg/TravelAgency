@@ -1,0 +1,43 @@
+<!-- Copyright (c) Microsoft Corporation and Contributors. -->
+<!-- Licensed under the MIT License. -->
+
+<Page
+    x:Class="TravelAgency.Presentation.Pages.AddCustomerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TravelAgency.Presentation.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <StackPanel Grid.Column="1" Margin="30,30">
+            <TextBlock Text="Customer Information" FontSize="16" FontWeight="Bold" Margin="0 16 0 0"/>
+
+            <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,5,0,0">
+                <TextBlock Text="First name:" />
+                <TextBox x:Name="FirstNameTextBox" Width="200" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,5,0,0">
+                <TextBlock Text="Last name:" />
+                <TextBox x:Name="LastNameTextBox" Width="200" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,5,0,0">
+                <TextBlock Text="Phone number:" />
+                <TextBox x:Name="PhoneNumberTextBox" Width="200" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,5,0,0">
+                <TextBlock Text="Address:" />
+                <TextBox x:Name="AddressTextBox" Width="200" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,5,0,0">
+                <Button x:Name="AddButton" Content="Add" Click="OnAddButtonClick" Margin="0,5,0,0" />
+                <Button x:Name="CancelButton" Content="Cancel" Click="OnCancelButtonClick" Margin="0,5,0,0" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

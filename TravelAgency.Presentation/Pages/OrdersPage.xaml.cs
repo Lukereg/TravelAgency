@@ -43,6 +43,12 @@ namespace TravelAgency.Presentation
             _window.Content = page;
         }
 
+        public void OnAddCustomerButtonClick(object sender, RoutedEventArgs e) 
+        {
+            var page = new AddCustomerPage(_window);
+            _window.Content = page;
+        }
+
         private async void LoadOrders()
         {
             _orders = await _orderService.GetAllOrders();

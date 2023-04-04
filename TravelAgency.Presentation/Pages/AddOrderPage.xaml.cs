@@ -83,7 +83,7 @@ namespace TravelAgency.Presentation
             await _orderService.AddOrder(order);
         }
 
-        public void OnBackButtonClick(object sender, RoutedEventArgs e)
+        public void OnCancelButtonClick(object sender, RoutedEventArgs e)
         {
             var page = new OrdersPage(_window);
             _window.Content = page;
