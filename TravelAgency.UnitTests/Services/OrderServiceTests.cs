@@ -6,19 +6,19 @@ using TravelAgency.Domain.Interfaces;
 
 namespace TravelAgency.UnitTests.Services
 {
-    public class OrderServiceTest
+    public class OrderServiceTests
     {
         private readonly Mock<IOrderRepository> _mockOrderRepository;
         private readonly OrderService _orderService;
 
-        public OrderServiceTest() 
+        public OrderServiceTests() 
         {
             _mockOrderRepository = new Mock<IOrderRepository>();
             _orderService = new OrderService();
         }
 
         [Fact]
-        public async Task GetOrders_OrdersExist_ReturnListOfGetOrderDto()
+        public async Task GetAllOrders_OrdersExist_ReturnListOfGetOrderDto()
         {
             //arrange
             var orders = new List<Order>
