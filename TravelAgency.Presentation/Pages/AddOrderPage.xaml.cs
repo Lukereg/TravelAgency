@@ -3,29 +3,15 @@
 
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Windows.Forms;
+using System.Text;
 using TravelAgency.Application.Models.Customer;
 using TravelAgency.Application.Models.Order;
 using TravelAgency.Application.Services.CustomerService;
 using TravelAgency.Application.Services.OrderService;
-using TravelAgency.Application.Services.UserService;
-using TravelAgency.Domain.Entities;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Networking;
+using TravelAgency.Application.Validators;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -48,7 +34,9 @@ namespace TravelAgency.Presentation
             _customerService = new CustomerService();
             _orderService = new OrderService();
             _window = window;
+
             this.InitializeComponent();
+
             LoadCustomers();
         }
 
@@ -60,27 +48,72 @@ namespace TravelAgency.Presentation
 
         public async void OnAddButtonClick(object sender, RoutedEventArgs e)
         {
-            var tourName = TourNameTextBox.Text;
-            var description = DescriptionTextBox.Text;
-            var price = decimal.Parse(PriceTextBox.Text);
-            var startDate = StartDatePicker.Date.DateTime;
-            var endDate = EndDatePicker.Date.DateTime;
+            var errors = new StringBuilder();
+            decimal price;
 
+            if (_selectedCustomer == null)
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = "Error",
+                    Content = "Please select a customer",
+                    CloseButtonText = "OK"
+                };
+                dialog.XamlRoot = this.XamlRoot;
+                await dialog.ShowAsync();
+                return;
+            }
+
+            if (!decimal.TryParse(PriceTextBox.Text, out price))
+            {
+                var dialog = new ContentDialog
+                {
+                    Title = "Error",
+                    Content = "Invalid price",
+                    CloseButtonText = "OK"
+                };
+                dialog.XamlRoot = this.XamlRoot;
+                await dialog.ShowAsync();
+                return;
+            }
+                
             var customerId = _selectedCustomer.Id;
 
             var order = new AddOrderDto
             {
-                TourName = tourName,
-                Description = description,
+                TourName = TourNameTextBox.Text,
+                Description = DescriptionTextBox.Text,
                 Price = price,
-                StartDate = startDate,
-                EndDate = endDate,
+                StartDate = StartDatePicker.Date.DateTime,
+                EndDate = EndDatePicker.Date.DateTime,
                 CustomerId = customerId,
-                CreatorId = AppSettings.UserLoggedInId
-                 
+                CreatorId = AppSettings.UserLoggedInId                
             };
 
-            await _orderService.AddOrder(order);
+            var validator = new AddOrderDtoValidator();
+            var validationResult = validator.Validate(order);
+
+            if (validationResult.IsValid)
+            {
+                await _orderService.AddOrder(order);
+            }
+            else
+            {   
+                foreach(var error in validationResult.Errors)
+                {
+                    errors.AppendLine(error.ErrorMessage);
+                }
+
+                var dialog = new ContentDialog
+                {
+                    Title = "Error",
+                    Content = errors,
+                    CloseButtonText = "OK"
+                };
+                dialog.XamlRoot = this.XamlRoot;
+                await dialog.ShowAsync();
+                return;
+            }      
         }
 
         public void OnCancelButtonClick(object sender, RoutedEventArgs e)
