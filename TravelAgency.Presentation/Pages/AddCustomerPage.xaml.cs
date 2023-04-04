@@ -13,8 +13,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using TravelAgency.Application.Models.Customer;
 using TravelAgency.Application.Services.CustomerService;
+using TravelAgency.Application.Validators;
+using TravelAgency.Domain.Entities;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
@@ -48,7 +51,33 @@ namespace TravelAgency.Presentation.Pages
                 PhoneNumber = PhoneNumberTextBox.Text
             };
 
-            await _customerService.AddCustomer(customer);
+
+            var validator = new AddCustomerDtoValidator();
+            var validationResult = validator.Validate(customer);
+
+            if (validationResult.IsValid)
+            {
+                await _customerService.AddCustomer(customer);
+            }
+            else
+            {
+                var errors = new StringBuilder();
+
+                foreach (var error in validationResult.Errors)
+                {
+                    errors.AppendLine(error.ErrorMessage);
+                }
+
+                var dialog = new ContentDialog
+                {
+                    Title = "Error",
+                    Content = errors,
+                    CloseButtonText = "OK"
+                };
+                dialog.XamlRoot = this.XamlRoot;
+                await dialog.ShowAsync();
+                return;
+            }
 
             var page = new OrdersPage(_window);
             _window.Content = page;
@@ -59,7 +88,5 @@ namespace TravelAgency.Presentation.Pages
             var page = new OrdersPage(_window);
             _window.Content = page;
         }
-
-
     }
 }
