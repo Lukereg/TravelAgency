@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using TravelAgency.Application.Models.Customer;
@@ -51,69 +52,58 @@ namespace TravelAgency.Presentation
             var errors = new StringBuilder();
             decimal price;
 
-            if (_selectedCustomer == null)
+            try
             {
-                var dialog = new ContentDialog
+                if (_selectedCustomer == null)
+                    throw new InvalidOperationException("Please select a customer");
+
+                if (!decimal.TryParse(PriceTextBox.Text, out price))
+                    throw new FormatException("Invalid price");
+
+                var customerId = _selectedCustomer.Id;
+
+                var order = new AddOrderDto
                 {
-                    Title = "Error",
-                    Content = "Please select a customer",
-                    CloseButtonText = "OK"
+                    TourName = TourNameTextBox.Text,
+                    Description = DescriptionTextBox.Text,
+                    Price = price,
+                    StartDate = StartDatePicker.Date.DateTime,
+                    EndDate = EndDatePicker.Date.DateTime,
+                    CustomerId = customerId,
+                    CreatorId = AppSettings.UserLoggedInId
                 };
-                dialog.XamlRoot = this.XamlRoot;
-                await dialog.ShowAsync();
-                return;
-            }
 
-            if (!decimal.TryParse(PriceTextBox.Text, out price))
-            {
-                var dialog = new ContentDialog
+                var validator = new AddOrderDtoValidator();
+                var validationResult = validator.Validate(order);
+
+                if (validationResult.IsValid)
                 {
-                    Title = "Error",
-                    Content = "Invalid price",
-                    CloseButtonText = "OK"
-                };
-                dialog.XamlRoot = this.XamlRoot;
-                await dialog.ShowAsync();
-                return;
-            }
-                
-            var customerId = _selectedCustomer.Id;
+                    await _orderService.AddOrder(order);
 
-            var order = new AddOrderDto
-            {
-                TourName = TourNameTextBox.Text,
-                Description = DescriptionTextBox.Text,
-                Price = price,
-                StartDate = StartDatePicker.Date.DateTime,
-                EndDate = EndDatePicker.Date.DateTime,
-                CustomerId = customerId,
-                CreatorId = AppSettings.UserLoggedInId                
-            };
-
-            var validator = new AddOrderDtoValidator();
-            var validationResult = validator.Validate(order);
-
-            if (validationResult.IsValid)
-            {
-                await _orderService.AddOrder(order);
-            }
-            else
-            {   
-                foreach(var error in validationResult.Errors)
-                {
-                    errors.AppendLine(error.ErrorMessage);
+                    var page = new OrdersPage(_window);
+                    _window.Content = page;
                 }
+                else
+                {
+                    foreach (var error in validationResult.Errors)
+                        errors.AppendLine(error.ErrorMessage);
 
+                    throw new ValidationException(errors.ToString());
+                }
+            }
+
+            catch (Exception ex)
+            {
                 var dialog = new ContentDialog
                 {
                     Title = "Error",
-                    Content = errors,
+                    Content = ex.Message,
                     CloseButtonText = "OK"
                 };
                 dialog.XamlRoot = this.XamlRoot;
                 await dialog.ShowAsync();
-                return;
-            }      
+            }
+
         }
 
         public void OnCancelButtonClick(object sender, RoutedEventArgs e)
