@@ -13,7 +13,7 @@ using TravelAgency.Infrastructure.Repositories;
 
 namespace TravelAgency.Application.Services.OrderService
 {
-    public class OrderService : IOrderService, IObservable
+    public class OrderService : IOrderService
     {
 
         private readonly IOrderRepository _orderRepository;

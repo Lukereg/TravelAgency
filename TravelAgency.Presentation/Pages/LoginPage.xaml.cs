@@ -28,7 +28,7 @@ namespace TravelAgency.Presentation
     /// </summary>
     public sealed partial class LoginPage : Page
     {
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
         private Window _window;
 
         public LoginPage(Window window)

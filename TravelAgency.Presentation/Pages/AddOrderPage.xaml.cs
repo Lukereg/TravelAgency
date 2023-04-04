@@ -38,8 +38,8 @@ namespace TravelAgency.Presentation
     public sealed partial class AddOrderPage : Page
     {
         private Window _window;
-        private readonly CustomerService _customerService;
-        private readonly OrderService _orderService;
+        private readonly ICustomerService _customerService;
+        private readonly IOrderService _orderService;
         private GetCustomerDto _selectedCustomer;
         private IEnumerable<GetCustomerDto> _customers = new List<GetCustomerDto>();
 

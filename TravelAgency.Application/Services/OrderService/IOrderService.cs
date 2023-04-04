@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TravelAgency.Application.Models.Order;
+using TravelAgency.Domain.Interfaces;
 
 namespace TravelAgency.Application.Services.OrderService
 {
-    public interface IOrderService
+    public interface IOrderService : IObservable
     {
         Task AddOrder(AddOrderDto addOrderDto);
         Task<IEnumerable<GetOrderDto>> GetAllOrders();

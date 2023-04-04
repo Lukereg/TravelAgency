@@ -24,8 +24,8 @@ namespace TravelAgency.Presentation
     {
         private Window _window;
         private IEnumerable<GetOrderDto> _orders = new List<GetOrderDto>();
-        private readonly OrderService _orderService;
-        private readonly CustomerService _customerService;
+        private readonly IOrderService _orderService;
+        private readonly ICustomerService _customerService;
 
         public OrdersPage(Window window)
         {

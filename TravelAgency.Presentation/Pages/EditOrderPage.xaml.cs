@@ -30,7 +30,7 @@ namespace TravelAgency.Presentation.Pages
     {
         private Window _window;
         private GetOrderDto _order;
-        private readonly OrderService _orderService;
+        private readonly IOrderService _orderService;
 
         public EditOrderPage(Window window, GetOrderDto order)
         {
